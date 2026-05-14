@@ -1,0 +1,58 @@
+[
+    {
+        "tournament": "PBA WSOB XVII - PBA World Championship - Semifinals",
+        "channel": "CBS Sports Network",
+        "date_label": "SAT 6/13 11a ET",
+        "start_time": "20260613T110000",
+        "end_time": "20260613T130000",
+        "timezone": "ET"
+    },
+    {
+        "tournament": "PBA WSOB XVII - PBA World Championship - Finals",
+        "channel": "CBS / Paramount+",
+        "date_label": "SAT 6/13 1p ET",
+        "start_time": "20260613T130000",
+        "end_time": "20260613T150000",
+        "timezone": "ET"
+    },
+    {
+        "tournament": "PBA Elite League: Battle of the Brands pres. by Beatbox - Semifinals",
+        "channel": "CBS Sports Network",
+        "date_label": "SAT 6/20 1p ET",
+        "start_time": "20260620T130000",
+        "end_time": "20260620T150000",
+        "timezone": "ET"
+    },
+    {
+        "tournament": "PBA Elite League: Battle of the Brands pres. by Beatbox - Finals",
+        "channel": "CBS Sports Network",
+        "date_label": "SAT 6/20 3p ET",
+        "start_time": "20260620T150000",
+        "end_time": "20260620T170000",
+        "timezone": "ET"
+    },
+    {
+        "tournament": "PBA Norm Duke Open - Semifinal 1",
+        "channel": "CBS Sports Network",
+        "date_label": "SUN 6/21 12p ET",
+        "start_time": "20260621T120000",
+        "end_time": "20260621T140000",
+        "timezone": "ET"
+    },
+    {
+        "tournament": "PBA Norm Duke Open - Semifinal 2",
+        "channel": "CBS Sports Network",
+        "date_label": "SUN 6/21 2p ET",
+        "start_time": "20260621T140000",
+        "end_time": "20260621T160000",
+        "timezone": "ET"
+    },
+    {
+        "tournament": "PBA Norm Duke Open - Championship",
+        "channel": "CBS Sports Network",
+        "date_label": "SUN 6/21 4p ET",
+        "start_time": "20260621T160000",
+        "end_time": "20260621T170000",
+        "timezone": "ET"
+    }
+]
