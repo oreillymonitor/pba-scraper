@@ -15,6 +15,7 @@ The resulting data is saved to `pba_tv_schedule.json` in the root of the reposit
 {
     "tournament": "PBA WSOB XVII - PBA World Championship - Finals",
     "channel": "CBS / Paramount+",
+    "channel_logo": "https://www.pba.com/sites/pba/files/2025-12/pba_tv_cbs_paramount_logo.png",
     "date_label": "SAT 6/13 1p ET",
     "start_time": "20260613T130000",
     "end_time": "20260613T150000",
@@ -23,6 +24,6 @@ The resulting data is saved to `pba_tv_schedule.json` in the root of the reposit
 ```
 
 ## Setup & Maintenance
-- **Scraper:** `pba-scraper/scrape_pba.py`
+- **Scraper:** `scrape_pba.py`
 - **Automation:** `.github/workflows/scrape.yml`
-- **Requirements:** `pba-scraper/requirements.txt`
+- **Requirements:** `requirements.txt`
