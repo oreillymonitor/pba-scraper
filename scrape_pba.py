@@ -12,11 +12,16 @@ def clean_text(text):
     text = text.replace("Broadcast Live", "")
     return " ".join(text.split()).strip()
 
-def get_channel_name(img_tag):
+def get_channel_info(img_tag):
     if not img_tag or not img_tag.get('src'):
-        return "Unknown"
+        return "Unknown", None
     
-    src = img_tag['src'].lower()
+    src = img_tag['src']
+    full_logo_url = src
+    if src.startswith('/'):
+        full_logo_url = f"https://www.pba.com{src}"
+    
+    src_lower = src.lower()
     
     # Mapping common PBA channel logo filenames to clean names
     mapping = {
@@ -28,13 +33,18 @@ def get_channel_name(img_tag):
         "bowltv": "BowlTV"
     }
     
+    channel_name = "Unknown"
     for key, value in mapping.items():
-        if key in src:
-            return value
+        if key in src_lower:
+            channel_name = value
+            break
             
-    # Fallback to the filename if not in mapping
-    filename = src.split('/')[-1].split('.')[0]
-    return filename.replace('-', ' ').replace('_', ' ').title()
+    if channel_name == "Unknown":
+        # Fallback to the filename if not in mapping
+        filename = src_lower.split('/')[-1].split('.')[0]
+        channel_name = filename.replace('-', ' ').replace('_', ' ').title()
+        
+    return channel_name, full_logo_url
 
 def scrape_pba_tv_schedule():
     url = "https://www.pba.com/watch/television"
@@ -74,7 +84,7 @@ def scrape_pba_tv_schedule():
         tournament = clean_text(cols[1].get_text())
         
         # 3. Channel
-        channel = get_channel_name(cols[2].find('img'))
+        channel_name, channel_logo = get_channel_info(cols[2].find('img'))
         
         # 4. Precise ISO Dates from Add to Calendar links
         # We look for the Google Calendar link as it contains a clear 'dates' parameter
@@ -92,7 +102,8 @@ def scrape_pba_tv_schedule():
         
         schedule.append({
             "tournament": tournament,
-            "channel": channel,
+            "channel": channel_name,
+            "channel_logo": channel_logo,
             "date_label": time_label,
             "start_time": start_iso,
             "end_time": end_iso,
