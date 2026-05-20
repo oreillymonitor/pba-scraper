@@ -210,8 +210,23 @@ document.addEventListener('DOMContentLoaded', () => {
             card.className = `event-card tour-${event.tour}`;
 
             const tourName = event.tour.toUpperCase();
-            const dateText = event.date;
-            const timeText = event.time;
+            
+            // Format Date for display
+            const dateObj = parseDate(event);
+            const dateOptions = { weekday: 'long', month: 'long', day: 'numeric' };
+            const dateText = dateObj.toLocaleDateString('en-US', dateOptions);
+            
+            // Format Time for display
+            let timeText = event.time;
+            if (timeText) {
+                // Ensure ET is there
+                if (!timeText.toUpperCase().includes('ET')) {
+                    timeText = `${timeText} ET`;
+                }
+                // Standardize format (e.g., 7 PM ET)
+                timeText = timeText.replace(/\s*ET/i, ' ET');
+            }
+
             const location = event.location || 'Online / TV';
 
             card.innerHTML = `
