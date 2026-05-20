@@ -96,32 +96,30 @@ document.addEventListener('DOMContentLoaded', () => {
             if (seen.has(key)) continue;
             
             const fuzzyMatch = merged.find(m => {
+                // Check if dates are essentially the same (e.g., "June 16" and "june16")
                 const mDate = m.date.replace(/[^a-z0-9]/g, '').toLowerCase();
-                if (Math.abs(mDate.length - datePrefix.length) > 2) {
-                    // Try to match if one is a prefix of other
-                    if (!mDate.includes(datePrefix) && !datePrefix.includes(mDate)) return false;
-                }
+                const eDate = normalizedDate.replace(/[^a-z0-9]/g, '').toLowerCase();
                 
-                const mName = m.tournament.toLowerCase().replace(/go bowling\s*/i, '');
-                const eName = event.tournament.toLowerCase().replace(/go bowling\s*/i, '');
+                // Allow fuzzy date match (prefix)
+                if (mDate !== eDate && !mDate.startsWith(eDate) && !eDate.startsWith(mDate)) return false;
                 
-                // Specific fuzzy rules
-                if (mName.includes('women') !== eName.includes('women')) return false;
-                if (mName.includes('open') && eName.includes('open')) return true;
+                // Normalizing names for the search
+                const mName = m.tournament.toLowerCase().replace(/go bowling\s*/i, '').replace(/[^a-z0-9]/g, '');
+                const eName = event.tournament.toLowerCase().replace(/go bowling\s*/i, '').replace(/[^a-z0-9]/g, '');
+                
+                // Special case for U.S. Open variants in fuzzy search
+                const isUSOpen = (n) => n.includes('usopen') || n.includes('uswomensopen') || n.includes('womensopen');
+                if (isUSOpen(mName) && isUSOpen(eName)) return true;
                 
                 return mName.includes(eName) || eName.includes(mName);
             });
 
             if (fuzzyMatch) {
-                // Prioritize USBC/PBA for time data if PWBA is missing it
-                if (!fuzzyMatch.time && time) {
-                    fuzzyMatch.time = time;
-                }
-                if (!fuzzyMatch.start_time && event.start_time) {
-                    fuzzyMatch.start_time = event.start_time;
-                }
+                // Carry over time/start_time
+                if (!fuzzyMatch.time && time) fuzzyMatch.time = time;
+                if (!fuzzyMatch.start_time && event.start_time) fuzzyMatch.start_time = event.start_time;
                 
-                // Location Priority: actual cities/states over generic placeholders
+                // Carry over location (prioritize specific over generic)
                 const isGeneric = (loc) => !loc || loc.includes('Details') || loc.includes('Online') || loc.includes('TV');
                 if (isGeneric(fuzzyMatch.location) && !isGeneric(event.location)) {
                     fuzzyMatch.location = event.location;
