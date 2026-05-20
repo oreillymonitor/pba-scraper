@@ -171,13 +171,8 @@ document.addEventListener('DOMContentLoaded', () => {
             card.className = `event-card tour-${event.tour}`;
 
             const tourName = event.tour.toUpperCase();
-            
-            // Split date_label into Date and Time
-            // Most labels are "Month Day Time"
-            const labelParts = event.date_label.split(/ (?=\d+ (?:AM|PM))|(?=\d+:[0-9]+ (?:AM|PM))|(?=\d+p)|(?=\d+a)/i);
-            const dateText = labelParts[0];
-            const timeText = labelParts.length > 1 ? labelParts.slice(1).join(' ') : '';
-
+            const dateText = event.date;
+            const timeText = event.time;
             const location = event.location || 'Online / TV';
 
             card.innerHTML = `

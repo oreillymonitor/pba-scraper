@@ -127,12 +127,14 @@ def scrape_pwba_schedule():
 
             schedule.append({
                 "tournament": tournament,
-                "location": location,
+                "tour": "pwba",
                 "channel": channel,
                 "channel_logo": channel_logo,
+                "date": date_label,
+                "time": "",
                 "date_label": date_label,
+                "location": location,
                 "start_time": None,
-                "end_time": None,
                 "timezone": "ET"
             })
         except Exception as e:

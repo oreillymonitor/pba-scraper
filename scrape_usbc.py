@@ -113,17 +113,34 @@ def scrape_usbc_schedule():
             elif "junior gold" in event_lower or "youth" in event_lower:
                 event_type = "Youth"
             
+            # Try to create a start_time ISO string for better sorting/filtering
+            start_iso = None
+            if date_label and time:
+                try:
+                    # USBC dates are usually "Month Day"
+                    date_str = f"{date_label} 2026 {time}"
+                    dt = datetime.strptime(date_str, "%B %d %Y %I:%M %p")
+                    start_iso = dt.strftime("%Y%m%dT%H%M00Z") # Simple UTC assumption for ISO
+                except:
+                    try:
+                        date_str = f"{date_label} 2026 {time}"
+                        dt = datetime.strptime(date_str, "%B %d %Y %I %p")
+                        start_iso = dt.strftime("%Y%m%dT%H%M00Z")
+                    except:
+                        pass
+
             schedule.append({
                 "tournament": event,
+                "tour": "usbc",
                 "type": event_type,
                 "channel": channel,
                 "channel_logo": channel_logo,
                 "date": date_label,
                 "time": time,
                 "date_label": f"{date_label} {time}".strip(),
-                "start_time": None,
-                "end_time": None,
-                "timezone": "ET"
+                "start_time": start_iso,
+                "timezone": "ET",
+                "location": "See Event Details"
             })
         except Exception as e:
             print(f"WARNING: Skipping row due to error: {e}")

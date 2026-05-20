@@ -118,14 +118,27 @@ def scrape_pba_tv_schedule():
                     start_iso = date_match.group(1)
                     end_iso = date_match.group(2)
             
+            # Split time_label into date and time
+            # Example: "Jan 19 5 PM"
+            time_match = re.search(r'(\d+(?::\d+)?\s*(?:AM|PM))', time_label, re.IGNORECASE)
+            if time_match:
+                time = time_match.group(1).strip()
+                date = time_label.replace(time, "").strip()
+            else:
+                date = time_label
+                time = ""
+
             schedule.append({
                 "tournament": tournament,
+                "tour": "pba",
                 "channel": channel_name,
                 "channel_logo": channel_logo,
+                "date": date,
+                "time": time,
                 "date_label": time_label,
                 "start_time": start_iso,
-                "end_time": end_iso,
-                "timezone": "ET"
+                "timezone": "ET",
+                "location": "See Event Details"
             })
         except Exception as e:
             print(f"WARNING: Skipping row due to error: {e}")
