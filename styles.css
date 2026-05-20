@@ -121,9 +121,11 @@ header .container {
     transform: scale(1.05);
 }
 
-.light-theme .icon-moon, .icon-sun { display: block; }
-.light-theme .icon-sun, .icon-moon { display: none; }
+.icon-sun { display: none; }
+.icon-moon { display: block; }
+
 .light-theme .icon-sun { display: block; }
+.light-theme .icon-moon { display: none; }
 
 .toggle-switch {
     display: flex;

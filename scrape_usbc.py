@@ -18,7 +18,7 @@ def get_network_info(row):
     logo_mapping = {
         "bowltv": ("BowlTV", "https://images.bowl.com/bowl/media/assets/bowlers/television/bowltv-tv-schedule.svg"),
         "cw_logo": ("The CW", "https://images.bowl.com/bowl/media/assets/bowlers/television/cw_logo_cw_black.png"),
-        "cbs": ("CBS Sports Network", "https://images.bowl.com/bowl/media/assets/temp/cbs-logo-white.svg"),
+        "cbs": ("CBS Sports Network", "https://www.pba.com/sites/pba/files/2023-05/cbs-sports-network.png"),
         "fox": ("FOX", "https://www.pba.com/sites/pba/files/2023-05/fox-sports.png"),
         "fs1": ("FS1", "https://www.pba.com/sites/pba/files/2023-05/fs1.png")
     }
