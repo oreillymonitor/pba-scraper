@@ -160,27 +160,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const tourName = event.tour.toUpperCase();
             const displayDate = event.date_label;
-            const location = event.location || 'See Event Details';
+            const location = event.location || 'Online / TV';
 
             card.innerHTML = `
-                <div class="card-header">
+                <div class="card-date-col">
+                    <span class="date-text">${displayDate}</span>
                     <span class="tour-tag tour-${event.tour}">${tourName}</span>
+                </div>
+                <div class="card-main-col">
+                    <h3 class="event-title">${event.tournament}</h3>
+                    <span class="event-location">📍 ${location}</span>
+                </div>
+                <div class="card-channel-col">
+                    <span class="channel-name">${event.channel}</span>
                     ${event.channel_logo ? `<img src="${event.channel_logo}" alt="${event.channel}" class="event-logo">` : ''}
-                </div>
-                <h3 class="event-title">${event.tournament}</h3>
-                <div class="event-details">
-                    <div class="detail-item">
-                        <span>📅</span>
-                        <span>${displayDate}</span>
-                    </div>
-                    <div class="detail-item">
-                        <span>📍</span>
-                        <span>${location}</span>
-                    </div>
-                </div>
-                <div class="channel-info">
-                    <span>📺</span>
-                    <span>${event.channel}</span>
                 </div>
             `;
             scheduleGrid.appendChild(card);
