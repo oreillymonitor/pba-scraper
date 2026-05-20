@@ -10,9 +10,9 @@ def clean_text(text):
         return ""
     text = " ".join(text.split()).strip()
     
-    # Normalize times: 7 p.m. -> 7 PM
-    text = re.sub(r'(\d+)\s*p(\.m\.)?', r'\1 PM', text, flags=re.IGNORECASE)
-    text = re.sub(r'(\d+)\s*a(\.m\.)?', r'\1 AM', text, flags=re.IGNORECASE)
+    # Normalize times: 7 p.m. -> 7 PM (but don't touch already normalized PM)
+    text = re.sub(r'(\d+)\s*p(?![mM])(?:\.m\.)?', r'\1 PM', text, flags=re.IGNORECASE)
+    text = re.sub(r'(\d+)\s*a(?![mM])(?:\.m\.)?', r'\1 AM', text, flags=re.IGNORECASE)
     return text
 
 def get_network_info(row):
@@ -81,20 +81,25 @@ def scrape_usbc_schedule():
             continue
             
         try:
-            # USBC often puts both date and time in the first column
+            # USBC often puts both date and time in the first column, 
+            # or sometimes time is in the network column
             raw_date_time = clean_text(cols[0].get_text())
             event = clean_text(cols[1].get_text())
+            raw_network = clean_text(cols[2].get_text())
             
-            # Use regex to split "March 8 4 PM" into "March 8" and "4 PM"
-            time_match = re.search(r'(\d+(?::\d+)?\s*(?:AM|PM))', raw_date_time, re.IGNORECASE)
+            # Look for time in both the date and network columns
+            time_match = re.search(r'(\d+(?::\d+)?\s*(?:AM|PM|a\.m\.|p\.m\.|ET|CT|PT|MT))', raw_date_time, re.IGNORECASE)
+            if not time_match:
+                time_match = re.search(r'(\d+(?::\d+)?\s*(?:AM|PM|a\.m\.|p\.m\.|ET|CT|PT|MT))', raw_network, re.IGNORECASE)
+            
             if time_match:
                 time = time_match.group(1).strip()
-                date_label = raw_date_time.replace(time, "").strip()
+                # Remove the time from the date label if it was found there
+                date_label = raw_date_time.replace(time, "").strip().replace("  ", " ")
             else:
                 date_label = raw_date_time
                 time = ""
             
-            # If date or event is empty, it might be a continuation of the previous row
             if not event:
                 continue
                 
