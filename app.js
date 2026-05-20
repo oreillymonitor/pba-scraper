@@ -3,8 +3,30 @@ document.addEventListener('DOMContentLoaded', () => {
     const loading = document.getElementById('loading');
     const emptyState = document.getElementById('emptyState');
     const filterBtns = document.querySelectorAll('.filter-btn');
+    const themeToggle = document.getElementById('themeToggle');
+    const pastEventsToggle = document.getElementById('pastEventsToggle');
 
     let allEvents = [];
+    let currentFilter = 'all';
+    let showPast = false;
+
+    // Theme Logic
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light') {
+        document.body.classList.add('light-theme');
+    }
+
+    themeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('light-theme');
+        const theme = document.body.classList.contains('light-theme') ? 'light' : 'dark';
+        localStorage.setItem('theme', theme);
+    });
+
+    // Past Events Logic
+    pastEventsToggle.addEventListener('change', (e) => {
+        showPast = e.target.checked;
+        applyFilters();
+    });
 
     async function loadData() {
         try {
@@ -14,13 +36,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 fetch('usbc_tv_schedule.json').then(r => r.ok ? r.json() : [])
             ]);
 
-            // Add source info
             const pba = pbaRes.map(e => ({ ...e, tour: 'pba' }));
             const pwba = pwbaRes.map(e => ({ ...e, tour: 'pwba' }));
             const usbc = usbcRes.map(e => ({ ...e, tour: 'usbc' }));
 
             allEvents = mergeSchedules(pba, pwba, usbc);
-            renderSchedule(allEvents);
+            applyFilters();
         } catch (error) {
             console.error('Error loading schedule:', error);
             loading.innerHTML = '<p>Failed to load schedules. Please try again later.</p>';
@@ -32,7 +53,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const merged = [];
         const seen = new Set();
 
-        // Sort by richness of data first (ISO time exists)
         combined.sort((a, b) => {
             if (a.start_time && !b.start_time) return -1;
             if (!a.start_time && b.start_time) return 1;
@@ -40,26 +60,21 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         for (const event of combined) {
-            // Simplified duplicate detection: Normalized Name + Partial Date
             const normalizedName = event.tournament.toLowerCase().replace(/[^a-z0-9]/g, '');
-            const datePrefix = event.date_label.split(' ')[0].replace(/[^a-z0-9]/g, ''); // e.g. "May19"
-            
+            const datePrefix = event.date_label.split(' ')[0].replace(/[^a-z0-9]/g, '');
             const key = `${normalizedName}_${datePrefix}`;
             
             if (seen.has(key)) continue;
             
-            // Check for fuzzy match on name if date matches exactly
             const fuzzyMatch = merged.find(m => {
                 const mDate = m.date_label.split(' ')[0].replace(/[^a-z0-9]/g, '');
                 if (mDate !== datePrefix) return false;
-                
                 const mName = m.tournament.toLowerCase();
                 const eName = event.tournament.toLowerCase();
                 return mName.includes(eName) || eName.includes(mName);
             });
 
             if (fuzzyMatch) {
-                // If the new one has a logo and the old one doesn't, or has a better channel name
                 if (!fuzzyMatch.channel_logo && event.channel_logo) {
                     fuzzyMatch.channel_logo = event.channel_logo;
                 }
@@ -70,16 +85,10 @@ document.addEventListener('DOMContentLoaded', () => {
             merged.push(event);
         }
 
-        // Final Sort by Date
-        return merged.sort((a, b) => {
-            const dateA = parseDate(a);
-            const dateB = parseDate(b);
-            return dateA - dateB;
-        });
+        return merged.sort((a, b) => parseDate(a) - parseDate(b));
     }
 
     function parseDate(event) {
-        // Handle ISO PBA dates
         if (event.start_time) {
             const year = event.start_time.substring(0, 4);
             const month = event.start_time.substring(4, 6);
@@ -89,7 +98,6 @@ document.addEventListener('DOMContentLoaded', () => {
             return new Date(`${year}-${month}-${day}T${hour}:${min}:00Z`);
         }
 
-        // Handle text labels like "May 19" or "April 21 7 p.m."
         const months = {
             'jan': 0, 'feb': 1, 'mar': 2, 'apr': 3, 'may': 4, 'jun': 5,
             'jul': 6, 'aug': 7, 'sep': 8, 'oct': 9, 'nov': 10, 'dec': 11
@@ -101,21 +109,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
         for (const part of parts) {
             const clean = part.replace(/[^a-z]/g, '');
-            if (months[clean] !== undefined) {
-                month = months[clean];
-            }
+            if (months[clean] !== undefined) month = months[clean];
             const num = part.replace(/[^0-9]/g, '');
-            if (num && !isNaN(num)) {
-                day = parseInt(num);
-            }
+            if (num && !isNaN(num)) day = parseInt(num);
         }
 
         const date = new Date();
         date.setFullYear(2026);
         date.setMonth(month);
         date.setDate(day);
-        date.setHours(12, 0, 0, 0); // Middle of day if no time
+        date.setHours(12, 0, 0, 0);
         return date;
+    }
+
+    function applyFilters() {
+        let filtered = allEvents;
+        
+        // Tour Filter
+        if (currentFilter !== 'all') {
+            filtered = filtered.filter(e => e.tour === currentFilter);
+        }
+
+        // Upcoming Filter
+        if (!showPast) {
+            const now = new Date();
+            // Move 'now' back by 4 hours to account for ongoing events
+            now.setHours(now.getHours() - 4); 
+            filtered = filtered.filter(e => parseDate(e) >= now);
+        }
+
+        renderSchedule(filtered);
     }
 
     function renderSchedule(events) {
@@ -134,7 +157,6 @@ document.addEventListener('DOMContentLoaded', () => {
         events.forEach(event => {
             const card = document.createElement('div');
             card.className = `event-card tour-${event.tour}`;
-            card.setAttribute('data-tour', event.tour);
 
             const tourName = event.tour.toUpperCase();
             const displayDate = event.date_label;
@@ -165,19 +187,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Filter Logic
     filterBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             filterBtns.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-
-            const filter = btn.getAttribute('data-filter');
-            if (filter === 'all') {
-                renderSchedule(allEvents);
-            } else {
-                const filtered = allEvents.filter(e => e.tour === filter);
-                renderSchedule(filtered);
-            }
+            currentFilter = btn.getAttribute('data-filter');
+            applyFilters();
         });
     });
 
