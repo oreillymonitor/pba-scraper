@@ -1,0 +1,110 @@
+[
+    {
+        "tournament": "Go Bowling U.S. Open",
+        "channel": "The CW",
+        "channel_logo": "https://images.bowl.com/bowl/media/assets/bowlers/television/cw_logo_cw_black.png",
+        "date_label": "March 8 4 p.m.",
+        "start_time": null,
+        "end_time": null,
+        "timezone": "ET"
+    },
+    {
+        "tournament": "USBC Masters",
+        "channel": "The CW",
+        "channel_logo": "https://images.bowl.com/bowl/media/assets/bowlers/television/cw_logo_cw_black.png",
+        "date_label": "March 29 4 p.m.",
+        "start_time": null,
+        "end_time": null,
+        "timezone": "ET"
+    },
+    {
+        "tournament": "Intercollegiate Singles Championships (Women)",
+        "channel": "CBS Sports Network",
+        "channel_logo": "https://images.bowl.com/bowl/media/assets/temp/cbs-logo-white.svg",
+        "date_label": "April 21 7 p.m.",
+        "start_time": null,
+        "end_time": null,
+        "timezone": "ET"
+    },
+    {
+        "tournament": "Intercollegiate Singles Championships (Men)",
+        "channel": "CBS Sports Network",
+        "channel_logo": "https://images.bowl.com/bowl/media/assets/temp/cbs-logo-white.svg",
+        "date_label": "April 28 9:30 p.m.",
+        "start_time": null,
+        "end_time": null,
+        "timezone": "ET"
+    },
+    {
+        "tournament": "Intercollegiate Team Championships (Women)",
+        "channel": "CBS Sports Network",
+        "channel_logo": "https://images.bowl.com/bowl/media/assets/temp/cbs-logo-white.svg",
+        "date_label": "May 5 7 p.m.",
+        "start_time": null,
+        "end_time": null,
+        "timezone": "ET"
+    },
+    {
+        "tournament": "Intercollegiate Team Championships (Men)",
+        "channel": "CBS Sports Network",
+        "channel_logo": "https://images.bowl.com/bowl/media/assets/temp/cbs-logo-white.svg",
+        "date_label": "May 13 7 p.m.",
+        "start_time": null,
+        "end_time": null,
+        "timezone": "ET"
+    },
+    {
+        "tournament": "USBC Queens",
+        "channel": "CBS Sports Network",
+        "channel_logo": "https://images.bowl.com/bowl/media/assets/temp/cbs-logo-white.svg",
+        "date_label": "May 19 6 p.m.",
+        "start_time": null,
+        "end_time": null,
+        "timezone": "ET"
+    },
+    {
+        "tournament": "Go Bowling U.S. Women's Open",
+        "channel": "CBS Sports Network",
+        "channel_logo": "https://images.bowl.com/bowl/media/assets/temp/cbs-logo-white.svg",
+        "date_label": "June 16 7 p.m.",
+        "start_time": null,
+        "end_time": null,
+        "timezone": "ET"
+    },
+    {
+        "tournament": "Junior Gold Championships (U12)",
+        "channel": "CBS Sports Network",
+        "channel_logo": "https://images.bowl.com/bowl/media/assets/temp/cbs-logo-white.svg",
+        "date_label": "July 21 7 p.m.",
+        "start_time": null,
+        "end_time": null,
+        "timezone": "ET"
+    },
+    {
+        "tournament": "Junior Gold Championships (U14)",
+        "channel": "CBS Sports Network",
+        "channel_logo": "https://images.bowl.com/bowl/media/assets/temp/cbs-logo-white.svg",
+        "date_label": "July 28 7 p.m.",
+        "start_time": null,
+        "end_time": null,
+        "timezone": "ET"
+    },
+    {
+        "tournament": "Junior Gold Championships (U16)",
+        "channel": "CBS Sports Network",
+        "channel_logo": "https://images.bowl.com/bowl/media/assets/temp/cbs-logo-white.svg",
+        "date_label": "Aug. 4 7 p.m.",
+        "start_time": null,
+        "end_time": null,
+        "timezone": "ET"
+    },
+    {
+        "tournament": "Junior Gold Championships (U18)",
+        "channel": "CBS Sports Network",
+        "channel_logo": "https://images.bowl.com/bowl/media/assets/temp/cbs-logo-white.svg",
+        "date_label": "Aug. 11 7 p.m.",
+        "start_time": null,
+        "end_time": null,
+        "timezone": "ET"
+    }
+]
