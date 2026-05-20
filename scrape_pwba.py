@@ -25,7 +25,7 @@ def get_broadcast_info(tournament_name, notes):
         return "CBS Sports Network", "https://www.pba.com/sites/pba/files/2023-05/cbs-sports-network.png"
     else:
         # Default to BowlTV for standard events
-        return "BowlTV", "https://www.pba.com/sites/pba/files/2023-05/bowltv.png" # Placeholder/Inferred
+        return "BowlTV", "https://www.pba.com/sites/pba/files/2026-04/bowltv-logo-blk-web.png"
 
 def scrape_pwba_schedule():
     url = "https://en.wikipedia.org/wiki/PWBA_Bowling_Tour:_2026_season"
@@ -119,7 +119,7 @@ def scrape_pwba_schedule():
                 channel_logo = "https://www.pba.com/sites/pba/files/2023-05/cbs-sports-network.png"
             elif "bowltv" in orig_airdate.lower():
                 channel = "BowlTV"
-                channel_logo = "https://www.pba.com/sites/pba/files/2023-05/bowltv.png"
+                channel_logo = "https://www.pba.com/sites/pba/files/2026-04/bowltv-logo-blk-web.png"
 
             schedule.append({
                 "tournament": tournament,
