@@ -60,37 +60,76 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         for (const event of combined) {
-            const normalizedName = event.tournament.toLowerCase().replace(/[^a-z0-9]/g, '');
-            const datePrefix = event.date_label.split(' ')[0].replace(/[^a-z0-9]/g, '');
-            const key = `${normalizedName}_${datePrefix}`;
+            // Normalize for comparison
+            let tournament = event.tournament.toLowerCase()
+                .replace(/go bowling\s*/i, '')
+                .replace(/[^a-z0-9]/g, '');
+            
+            // Special case for U.S. Open variants
+            if (tournament.includes('uswomensopen')) tournament = 'uswomensopen';
+            if (tournament.includes('usopen')) tournament = 'usopen';
+            
+            // Standardize Date Label (e.g., Jun -> June)
+            const monthMap = {
+                'jan': 'January', 'feb': 'February', 'mar': 'March', 'apr': 'April',
+                'may': 'May', 'jun': 'June', 'jul': 'July', 'aug': 'August',
+                'sep': 'September', 'oct': 'October', 'nov': 'November', 'dec': 'December'
+            };
+            
+            let normalizedDate = event.date;
+            for (const [short, full] of Object.entries(monthMap)) {
+                if (normalizedDate.toLowerCase().startsWith(short) && !normalizedDate.toLowerCase().startsWith(full.toLowerCase())) {
+                    normalizedDate = normalizedDate.replace(new RegExp(short, 'i'), full);
+                }
+            }
+            
+            // Handle ET in date vs time
+            let time = event.time;
+            if (normalizedDate.toUpperCase().includes(' ET')) {
+                normalizedDate = normalizedDate.replace(/ ET/i, '').trim();
+                if (!time.includes('ET')) time = `${time} ET`.trim();
+            }
+
+            const datePrefix = normalizedDate.replace(/[^a-z0-9]/g, '').toLowerCase();
+            const key = `${tournament}_${datePrefix}`;
             
             if (seen.has(key)) continue;
             
             const fuzzyMatch = merged.find(m => {
-                const mDate = m.date_label.split(' ')[0].replace(/[^a-z0-9]/g, '');
-                if (mDate !== datePrefix) return false;
-                const mName = m.tournament.toLowerCase();
-                const eName = event.tournament.toLowerCase();
+                const mDate = m.date.replace(/[^a-z0-9]/g, '').toLowerCase();
+                if (Math.abs(mDate.length - datePrefix.length) > 2) {
+                    // Try to match if one is a prefix of other
+                    if (!mDate.includes(datePrefix) && !datePrefix.includes(mDate)) return false;
+                }
+                
+                const mName = m.tournament.toLowerCase().replace(/go bowling\s*/i, '');
+                const eName = event.tournament.toLowerCase().replace(/go bowling\s*/i, '');
+                
+                // Specific fuzzy rules
+                if (mName.includes('women') !== eName.includes('women')) return false;
+                if (mName.includes('open') && eName.includes('open')) return true;
+                
                 return mName.includes(eName) || eName.includes(mName);
             });
 
             if (fuzzyMatch) {
                 // Prioritize USBC/PBA for time data if PWBA is missing it
+                if (!fuzzyMatch.time && time) {
+                    fuzzyMatch.time = time;
+                }
                 if (!fuzzyMatch.start_time && event.start_time) {
                     fuzzyMatch.start_time = event.start_time;
-                    fuzzyMatch.date_label = event.date_label;
-                } else if (fuzzyMatch.tour === 'pwba' && event.tour === 'usbc') {
-                    // Specific case: USBC has better time strings for PWBA televised events
-                    fuzzyMatch.date_label = event.date_label;
                 }
-
-                if (!fuzzyMatch.channel_logo && event.channel_logo) {
-                    fuzzyMatch.channel_logo = event.channel_logo;
+                if (fuzzyMatch.location === 'See Event Details' && event.location !== 'See Event Details') {
+                    fuzzyMatch.location = event.location;
                 }
                 continue;
             }
 
             seen.add(key);
+            // Update the event object with normalized data
+            event.date = normalizedDate;
+            event.time = time;
             merged.push(event);
         }
 
