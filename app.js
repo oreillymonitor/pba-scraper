@@ -151,12 +151,12 @@ document.addEventListener('DOMContentLoaded', () => {
             'jul': 6, 'aug': 7, 'sep': 8, 'oct': 9, 'nov': 10, 'dec': 11
         };
 
-        const parts = event.date_label.toLowerCase().split(/[ \/]/);
+        const parts = event.date.toLowerCase().split(/[ \/]/);
         let month = 4; // Default to May
         let day = 1;
 
         for (const part of parts) {
-            const clean = part.replace(/[^a-z]/g, '');
+            const clean = part.replace(/[^a-z]/g, '').substring(0, 3);
             if (months[clean] !== undefined) month = months[clean];
             const num = part.replace(/[^0-9]/g, '');
             if (num && !isNaN(num)) day = parseInt(num);

@@ -21,12 +21,15 @@ The resulting data is saved to the following files in the root of the repository
 ```json
 {
     "tournament": "Intercollegiate Team Championships (Men)",
+    "tour": "usbc",
+    "type": "College",
     "channel": "CBS Sports Network",
-    "channel_logo": "https://images.bowl.com/bowl/media/assets/temp/cbs-logo-white.svg",
-    "date_label": "May 13 7 p.m.",
-    "start_time": null,
-    "end_time": null,
-    "timezone": "ET"
+    "channel_logo": "https://www.pba.com/sites/pba/files/2023-05/cbs-sports-network.png",
+    "date": "May 13",
+    "time": "7 PM",
+    "start_time": "20260513T190000Z",
+    "timezone": "ET",
+    "location": "See Event Details"
 }
 ```
 

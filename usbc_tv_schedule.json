@@ -7,7 +7,6 @@
         "channel_logo": "https://images.bowl.com/bowl/media/assets/bowlers/television/cw_logo_cw_black.png",
         "date": "March 8",
         "time": "4 PM",
-        "date_label": "March 8 4 PM",
         "start_time": "20260308T160000Z",
         "timezone": "ET",
         "location": "See Event Details"
@@ -20,7 +19,6 @@
         "channel_logo": "https://images.bowl.com/bowl/media/assets/bowlers/television/cw_logo_cw_black.png",
         "date": "March 29",
         "time": "4 PM",
-        "date_label": "March 29 4 PM",
         "start_time": "20260329T160000Z",
         "timezone": "ET",
         "location": "See Event Details"
@@ -33,7 +31,6 @@
         "channel_logo": "https://www.pba.com/sites/pba/files/2023-05/cbs-sports-network.png",
         "date": "April 21",
         "time": "7 PM",
-        "date_label": "April 21 7 PM",
         "start_time": "20260421T190000Z",
         "timezone": "ET",
         "location": "See Event Details"
@@ -46,7 +43,6 @@
         "channel_logo": "https://www.pba.com/sites/pba/files/2023-05/cbs-sports-network.png",
         "date": "April 28",
         "time": "9:30 PM",
-        "date_label": "April 28 9:30 PM",
         "start_time": "20260428T213000Z",
         "timezone": "ET",
         "location": "See Event Details"
@@ -59,7 +55,6 @@
         "channel_logo": "https://www.pba.com/sites/pba/files/2023-05/cbs-sports-network.png",
         "date": "May 5",
         "time": "7 PM",
-        "date_label": "May 5 7 PM",
         "start_time": "20260505T190000Z",
         "timezone": "ET",
         "location": "See Event Details"
@@ -72,7 +67,6 @@
         "channel_logo": "https://www.pba.com/sites/pba/files/2023-05/cbs-sports-network.png",
         "date": "May 13",
         "time": "7 PM",
-        "date_label": "May 13 7 PM",
         "start_time": "20260513T190000Z",
         "timezone": "ET",
         "location": "See Event Details"
@@ -85,7 +79,6 @@
         "channel_logo": "https://www.pba.com/sites/pba/files/2023-05/cbs-sports-network.png",
         "date": "May 19",
         "time": "6 PM",
-        "date_label": "May 19 6 PM",
         "start_time": "20260519T180000Z",
         "timezone": "ET",
         "location": "See Event Details"
@@ -98,7 +91,6 @@
         "channel_logo": "https://www.pba.com/sites/pba/files/2023-05/cbs-sports-network.png",
         "date": "June 16",
         "time": "7 PM",
-        "date_label": "June 16 7 PM",
         "start_time": "20260616T190000Z",
         "timezone": "ET",
         "location": "See Event Details"
@@ -111,7 +103,6 @@
         "channel_logo": "https://www.pba.com/sites/pba/files/2023-05/cbs-sports-network.png",
         "date": "July 21",
         "time": "7 PM",
-        "date_label": "July 21 7 PM",
         "start_time": "20260721T190000Z",
         "timezone": "ET",
         "location": "See Event Details"
@@ -124,7 +115,6 @@
         "channel_logo": "https://www.pba.com/sites/pba/files/2023-05/cbs-sports-network.png",
         "date": "July 28",
         "time": "7 PM",
-        "date_label": "July 28 7 PM",
         "start_time": "20260728T190000Z",
         "timezone": "ET",
         "location": "See Event Details"
@@ -137,7 +127,6 @@
         "channel_logo": "https://www.pba.com/sites/pba/files/2023-05/cbs-sports-network.png",
         "date": "Aug. 4",
         "time": "7 PM",
-        "date_label": "Aug. 4 7 PM",
         "start_time": null,
         "timezone": "ET",
         "location": "See Event Details"
@@ -150,7 +139,6 @@
         "channel_logo": "https://www.pba.com/sites/pba/files/2023-05/cbs-sports-network.png",
         "date": "Aug. 11",
         "time": "7 PM",
-        "date_label": "Aug. 11 7 PM",
         "start_time": null,
         "timezone": "ET",
         "location": "See Event Details"

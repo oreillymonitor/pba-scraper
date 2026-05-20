@@ -132,7 +132,6 @@ def scrape_pwba_schedule():
                 "channel_logo": channel_logo,
                 "date": date_label,
                 "time": "",
-                "date_label": date_label,
                 "location": location,
                 "start_time": None,
                 "timezone": "ET"

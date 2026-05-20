@@ -137,7 +137,6 @@ def scrape_usbc_schedule():
                 "channel_logo": channel_logo,
                 "date": date_label,
                 "time": time,
-                "date_label": f"{date_label} {time}".strip(),
                 "start_time": start_iso,
                 "timezone": "ET",
                 "location": "See Event Details"

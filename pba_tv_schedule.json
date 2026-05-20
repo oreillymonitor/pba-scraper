@@ -6,7 +6,6 @@
         "channel_logo": "https://www.pba.com/sites/pba/files/2023-05/cbs-sports-network.png",
         "date": "SAT 6/13  ET",
         "time": "11 AM",
-        "date_label": "SAT 6/13 11 AM ET",
         "start_time": "20260613T110000",
         "timezone": "ET",
         "location": "See Event Details"
@@ -18,7 +17,6 @@
         "channel_logo": "https://www.pba.com/sites/pba/files/2025-12/pba_tv_cbs_paramount_logo.png",
         "date": "SAT 6/13  ET",
         "time": "1 PM",
-        "date_label": "SAT 6/13 1 PM ET",
         "start_time": "20260613T130000",
         "timezone": "ET",
         "location": "See Event Details"
@@ -30,7 +28,6 @@
         "channel_logo": "https://www.pba.com/sites/pba/files/2023-05/cbs-sports-network.png",
         "date": "SAT 6/20  ET",
         "time": "1 PM",
-        "date_label": "SAT 6/20 1 PM ET",
         "start_time": "20260620T130000",
         "timezone": "ET",
         "location": "See Event Details"
@@ -42,7 +39,6 @@
         "channel_logo": "https://www.pba.com/sites/pba/files/2023-05/cbs-sports-network.png",
         "date": "SAT 6/20  ET",
         "time": "3 PM",
-        "date_label": "SAT 6/20 3 PM ET",
         "start_time": "20260620T150000",
         "timezone": "ET",
         "location": "See Event Details"
@@ -54,7 +50,6 @@
         "channel_logo": "https://www.pba.com/sites/pba/files/2023-05/cbs-sports-network.png",
         "date": "SUN 6/21  ET",
         "time": "12 PM",
-        "date_label": "SUN 6/21 12 PM ET",
         "start_time": "20260621T120000",
         "timezone": "ET",
         "location": "See Event Details"
@@ -66,7 +61,6 @@
         "channel_logo": "https://www.pba.com/sites/pba/files/2023-05/cbs-sports-network.png",
         "date": "SUN 6/21  ET",
         "time": "2 PM",
-        "date_label": "SUN 6/21 2 PM ET",
         "start_time": "20260621T140000",
         "timezone": "ET",
         "location": "See Event Details"
@@ -78,7 +72,6 @@
         "channel_logo": "https://www.pba.com/sites/pba/files/2023-05/cbs-sports-network.png",
         "date": "SUN 6/21  ET",
         "time": "4 PM",
-        "date_label": "SUN 6/21 4 PM ET",
         "start_time": "20260621T160000",
         "timezone": "ET",
         "location": "See Event Details"

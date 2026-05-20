@@ -135,7 +135,6 @@ def scrape_pba_tv_schedule():
                 "channel_logo": channel_logo,
                 "date": date,
                 "time": time,
-                "date_label": time_label,
                 "start_time": start_iso,
                 "timezone": "ET",
                 "location": "See Event Details"
