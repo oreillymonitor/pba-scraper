@@ -3,7 +3,7 @@
         "tournament": "PBA WSOB XVII - PBA World Championship - Semifinals",
         "channel": "CBS Sports Network",
         "channel_logo": "https://www.pba.com/sites/pba/files/2023-05/cbs-sports-network.png",
-        "date_label": "SAT 6/13 11a ET",
+        "date_label": "SAT 6/13 11 AM ET",
         "start_time": "20260613T110000",
         "end_time": "20260613T130000",
         "timezone": "ET"
@@ -12,7 +12,7 @@
         "tournament": "PBA WSOB XVII - PBA World Championship - Finals",
         "channel": "CBS / Paramount+",
         "channel_logo": "https://www.pba.com/sites/pba/files/2025-12/pba_tv_cbs_paramount_logo.png",
-        "date_label": "SAT 6/13 1p ET",
+        "date_label": "SAT 6/13 1 PM ET",
         "start_time": "20260613T130000",
         "end_time": "20260613T150000",
         "timezone": "ET"
@@ -21,7 +21,7 @@
         "tournament": "PBA Elite League: Battle of the Brands pres. by Beatbox - Semifinals",
         "channel": "CBS Sports Network",
         "channel_logo": "https://www.pba.com/sites/pba/files/2023-05/cbs-sports-network.png",
-        "date_label": "SAT 6/20 1p ET",
+        "date_label": "SAT 6/20 1 PM ET",
         "start_time": "20260620T130000",
         "end_time": "20260620T150000",
         "timezone": "ET"
@@ -30,7 +30,7 @@
         "tournament": "PBA Elite League: Battle of the Brands pres. by Beatbox - Finals",
         "channel": "CBS Sports Network",
         "channel_logo": "https://www.pba.com/sites/pba/files/2023-05/cbs-sports-network.png",
-        "date_label": "SAT 6/20 3p ET",
+        "date_label": "SAT 6/20 3 PM ET",
         "start_time": "20260620T150000",
         "end_time": "20260620T170000",
         "timezone": "ET"
@@ -39,7 +39,7 @@
         "tournament": "PBA Norm Duke Open - Semifinal 1",
         "channel": "CBS Sports Network",
         "channel_logo": "https://www.pba.com/sites/pba/files/2023-05/cbs-sports-network.png",
-        "date_label": "SUN 6/21 12p ET",
+        "date_label": "SUN 6/21 12 PM ET",
         "start_time": "20260621T120000",
         "end_time": "20260621T140000",
         "timezone": "ET"
@@ -48,7 +48,7 @@
         "tournament": "PBA Norm Duke Open - Semifinal 2",
         "channel": "CBS Sports Network",
         "channel_logo": "https://www.pba.com/sites/pba/files/2023-05/cbs-sports-network.png",
-        "date_label": "SUN 6/21 2p ET",
+        "date_label": "SUN 6/21 2 PM ET",
         "start_time": "20260621T140000",
         "end_time": "20260621T160000",
         "timezone": "ET"
@@ -57,7 +57,7 @@
         "tournament": "PBA Norm Duke Open - Championship",
         "channel": "CBS Sports Network",
         "channel_logo": "https://www.pba.com/sites/pba/files/2023-05/cbs-sports-network.png",
-        "date_label": "SUN 6/21 4p ET",
+        "date_label": "SUN 6/21 4 PM ET",
         "start_time": "20260621T160000",
         "end_time": "20260621T170000",
         "timezone": "ET"

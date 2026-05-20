@@ -174,7 +174,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Split date_label into Date and Time
             // Most labels are "Month Day Time"
-            const labelParts = event.date_label.split(/ (?=\d+ [ap]\.m\.)|(?=\d+:[0-9]+ [ap]\.m\.)|(?=\d+p)|(?=\d+a)/i);
+            const labelParts = event.date_label.split(/ (?=\d+ (?:AM|PM))|(?=\d+:[0-9]+ (?:AM|PM))|(?=\d+p)|(?=\d+a)/i);
             const dateText = labelParts[0];
             const timeText = labelParts.length > 1 ? labelParts.slice(1).join(' ') : '';
 

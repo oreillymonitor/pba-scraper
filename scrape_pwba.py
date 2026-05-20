@@ -8,9 +8,13 @@ from datetime import datetime
 def clean_text(text):
     if not text:
         return ""
-    # Remove citations like [1], [2]
-    text = re.sub(r'\[\d+\]', '', text)
-    return " ".join(text.split()).strip()
+    text = re.sub(r'\[.*?\]', '', text) # Remove citations
+    text = " ".join(text.split()).strip()
+    
+    # Normalize times
+    text = re.sub(r'(\d+)\s*p(\.m\.)?', r'\1 PM', text, flags=re.IGNORECASE)
+    text = re.sub(r'(\d+)\s*a(\.m\.)?', r'\1 AM', text, flags=re.IGNORECASE)
+    return text
 
 def get_broadcast_info(tournament_name, notes):
     tournament_lower = tournament_name.lower()

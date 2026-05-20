@@ -11,7 +11,12 @@ def clean_text(text):
         return ""
     # Remove "Broadcast Live" and extra whitespace
     text = text.replace("Broadcast Live", "")
-    return " ".join(text.split()).strip()
+    text = " ".join(text.split()).strip()
+    
+    # Normalize times: 1p -> 1 PM, 11a -> 11 AM
+    text = re.sub(r'(\d+)\s*p(\.m\.)?', r'\1 PM', text, flags=re.IGNORECASE)
+    text = re.sub(r'(\d+)\s*a(\.m\.)?', r'\1 AM', text, flags=re.IGNORECASE)
+    return text
 
 def get_channel_info(img_tag):
     if not img_tag or not img_tag.get('src'):

@@ -8,7 +8,12 @@ from datetime import datetime
 def clean_text(text):
     if not text:
         return ""
-    return " ".join(text.split()).strip()
+    text = " ".join(text.split()).strip()
+    
+    # Normalize times: 7 p.m. -> 7 PM
+    text = re.sub(r'(\d+)\s*p(\.m\.)?', r'\1 PM', text, flags=re.IGNORECASE)
+    text = re.sub(r'(\d+)\s*a(\.m\.)?', r'\1 AM', text, flags=re.IGNORECASE)
+    return text
 
 def get_network_info(row):
     # Search for logos in the row
