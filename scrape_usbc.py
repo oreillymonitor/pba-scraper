@@ -81,11 +81,20 @@ def scrape_usbc_schedule():
             continue
             
         try:
-            date_label = clean_text(cols[0].get_text())
+            # USBC often puts both date and time in the first column
+            raw_date_time = clean_text(cols[0].get_text())
             event = clean_text(cols[1].get_text())
-            time = clean_text(cols[2].get_text())
             
-            # If date or event is empty, it might be a continuation of the previous row (though rare on USBC)
+            # Use regex to split "March 8 4 PM" into "March 8" and "4 PM"
+            time_match = re.search(r'(\d+(?::\d+)?\s*(?:AM|PM))', raw_date_time, re.IGNORECASE)
+            if time_match:
+                time = time_match.group(1).strip()
+                date_label = raw_date_time.replace(time, "").strip()
+            else:
+                date_label = raw_date_time
+                time = ""
+            
+            # If date or event is empty, it might be a continuation of the previous row
             if not event:
                 continue
                 
@@ -99,17 +108,17 @@ def scrape_usbc_schedule():
             elif "junior gold" in event_lower or "youth" in event_lower:
                 event_type = "Youth"
             
-            full_date_label = f"{date_label} {time}".strip()
-            
             schedule.append({
                 "tournament": event,
                 "type": event_type,
                 "channel": channel,
                 "channel_logo": channel_logo,
-                "date_label": full_date_label,
+                "date": date_label,
+                "time": time,
+                "date_label": f"{date_label} {time}".strip(),
                 "start_time": None,
                 "end_time": None,
-                "timezone": "ET" if "ET" in time.upper() or not time else "ET"
+                "timezone": "ET"
             })
         except Exception as e:
             print(f"WARNING: Skipping row due to error: {e}")
