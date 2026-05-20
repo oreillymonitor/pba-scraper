@@ -65,7 +65,7 @@ def scrape_pba_tv_schedule():
     
     # Check for off-season messages or empty containers
     # The PBA site often displays a "No upcoming events" message
-    empty_msg = soup.find(text=re.compile("No upcoming events", re.IGNORECASE))
+    empty_msg = soup.find(string=re.compile("No upcoming events", re.IGNORECASE))
     if empty_msg:
         print("INFO: No upcoming events found (Off-season).")
         return []

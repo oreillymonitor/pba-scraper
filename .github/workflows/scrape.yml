@@ -26,17 +26,19 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    - name: Run scraper
-      run: python scrape_pba.py
+    - name: Run scrapers
+      run: |
+        python scrape_pba.py
+        python scrape_pwba.py
 
     - name: Commit and push if changed
       run: |
         git config --global user.name 'github-actions[bot]'
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-        git add pba_tv_schedule.json
+        git add pba_tv_schedule.json pwba_tv_schedule.json
         if git diff --staged --quiet; then
           echo "No changes to commit"
         else
-          git commit -m "Automated update of PBA TV schedule"
+          git commit -m "Automated update of PBA and PWBA TV schedules"
           git push
         fi

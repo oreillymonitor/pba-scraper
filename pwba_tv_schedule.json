@@ -1,0 +1,122 @@
+[
+    {
+        "tournament": "PWBA Bowlers Journal Rockford Open",
+        "location": "Rockford, IL",
+        "channel": "BowlTV",
+        "channel_logo": "https://www.pba.com/sites/pba/files/2023-05/bowltv.png",
+        "date_label": "May 2",
+        "start_time": null,
+        "end_time": null,
+        "timezone": "ET"
+    },
+    {
+        "tournament": "PWBA Northern Colorado Open",
+        "location": "Greeley, CO",
+        "channel": "BowlTV",
+        "channel_logo": "https://www.pba.com/sites/pba/files/2023-05/bowltv.png",
+        "date_label": "May 9",
+        "start_time": null,
+        "end_time": null,
+        "timezone": "ET"
+    },
+    {
+        "tournament": "USBC Queens",
+        "location": "Las Vegas, NV",
+        "channel": "CBS Sports Network",
+        "channel_logo": "https://www.pba.com/sites/pba/files/2023-05/cbs-sports-network.png",
+        "date_label": "May 19",
+        "start_time": null,
+        "end_time": null,
+        "timezone": "ET"
+    },
+    {
+        "tournament": "PWBA Summer Series – PWBA Rochester Open",
+        "location": "Gates, NY",
+        "channel": "BowlTV",
+        "channel_logo": "https://www.pba.com/sites/pba/files/2023-05/bowltv.png",
+        "date_label": "May 28",
+        "start_time": null,
+        "end_time": null,
+        "timezone": "ET"
+    },
+    {
+        "tournament": "PWBA Summer Series – PWBA BowlTV Open",
+        "location": "Gates, NY",
+        "channel": "BowlTV",
+        "channel_logo": "https://www.pba.com/sites/pba/files/2023-05/bowltv.png",
+        "date_label": "May 30",
+        "start_time": null,
+        "end_time": null,
+        "timezone": "ET"
+    },
+    {
+        "tournament": "PWBA Summer Series – PWBA Lilac City Open",
+        "location": "Gates, NY",
+        "channel": "BowlTV",
+        "channel_logo": "https://www.pba.com/sites/pba/files/2023-05/bowltv.png",
+        "date_label": "Jun 1",
+        "start_time": null,
+        "end_time": null,
+        "timezone": "ET"
+    },
+    {
+        "tournament": "PWBA GoBowling! Columbus Open",
+        "location": "Columbus, OH",
+        "channel": "BowlTV",
+        "channel_logo": "https://www.pba.com/sites/pba/files/2023-05/bowltv.png",
+        "date_label": "Jun 6",
+        "start_time": null,
+        "end_time": null,
+        "timezone": "ET"
+    },
+    {
+        "tournament": "U.S. Women's Open",
+        "location": "Indianapolis, IN",
+        "channel": "CBS Sports Network",
+        "channel_logo": "https://www.pba.com/sites/pba/files/2023-05/cbs-sports-network.png",
+        "date_label": "Jun 16",
+        "start_time": null,
+        "end_time": null,
+        "timezone": "ET"
+    },
+    {
+        "tournament": "PBA-PWBA Striking Against Breast Cancer Mixed Doubles",
+        "location": "Houston, TX",
+        "channel": "BowlTV",
+        "channel_logo": "https://www.pba.com/sites/pba/files/2023-05/bowltv.png",
+        "date_label": "Aug 2",
+        "start_time": null,
+        "end_time": null,
+        "timezone": "ET"
+    },
+    {
+        "tournament": "PWBA Tour Championship Week – PWBA Pepsi Open",
+        "location": "Parma Heights, OH",
+        "channel": "BowlTV",
+        "channel_logo": "https://www.pba.com/sites/pba/files/2023-05/bowltv.png",
+        "date_label": "Aug 13",
+        "start_time": null,
+        "end_time": null,
+        "timezone": "ET"
+    },
+    {
+        "tournament": "PWBA Tour Championship Week – PWBA Cleveland Open",
+        "location": "Parma Heights, OH",
+        "channel": "BowlTV",
+        "channel_logo": "https://www.pba.com/sites/pba/files/2023-05/bowltv.png",
+        "date_label": "Aug 15",
+        "start_time": null,
+        "end_time": null,
+        "timezone": "ET"
+    },
+    {
+        "tournament": "PWBA Tour Championship",
+        "location": "Parma Heights, OH",
+        "channel": "CBS Sports Network",
+        "channel_logo": "https://www.pba.com/sites/pba/files/2023-05/cbs-sports-network.png",
+        "date_label": "Aug 18",
+        "start_time": null,
+        "end_time": null,
+        "timezone": "ET"
+    }
+]
