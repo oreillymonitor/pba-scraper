@@ -75,6 +75,15 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (fuzzyMatch) {
+                // Prioritize USBC/PBA for time data if PWBA is missing it
+                if (!fuzzyMatch.start_time && event.start_time) {
+                    fuzzyMatch.start_time = event.start_time;
+                    fuzzyMatch.date_label = event.date_label;
+                } else if (fuzzyMatch.tour === 'pwba' && event.tour === 'usbc') {
+                    // Specific case: USBC has better time strings for PWBA televised events
+                    fuzzyMatch.date_label = event.date_label;
+                }
+
                 if (!fuzzyMatch.channel_logo && event.channel_logo) {
                     fuzzyMatch.channel_logo = event.channel_logo;
                 }
@@ -134,7 +143,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // Upcoming Filter
         if (!showPast) {
             const now = new Date();
-            // Buffer: consider an event "past" only if it started more than 6 hours ago
             const bufferTime = 6 * 60 * 60 * 1000;
             filtered = filtered.filter(e => {
                 const eventDate = parseDate(e);
@@ -163,12 +171,19 @@ document.addEventListener('DOMContentLoaded', () => {
             card.className = `event-card tour-${event.tour}`;
 
             const tourName = event.tour.toUpperCase();
-            const displayDate = event.date_label;
+            
+            // Split date_label into Date and Time
+            // Most labels are "Month Day Time"
+            const labelParts = event.date_label.split(/ (?=\d+ [ap]\.m\.)|(?=\d+:[0-9]+ [ap]\.m\.)|(?=\d+p)|(?=\d+a)/i);
+            const dateText = labelParts[0];
+            const timeText = labelParts.length > 1 ? labelParts.slice(1).join(' ') : '';
+
             const location = event.location || 'Online / TV';
 
             card.innerHTML = `
                 <div class="card-date-col">
-                    <span class="date-text">${displayDate}</span>
+                    <span class="date-text">${dateText}</span>
+                    ${timeText ? `<span class="time-text">${timeText}</span>` : ''}
                     <span class="tour-tag tour-${event.tour}">${tourName}</span>
                 </div>
                 <div class="card-main-col">
