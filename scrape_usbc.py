@@ -86,16 +86,25 @@ def scrape_usbc_schedule():
                 
             channel, channel_logo = get_network_info(row)
             
+            # Determine event type
+            event_type = "Professional"
+            event_lower = event.lower()
+            if "intercollegiate" in event_lower or "college" in event_lower:
+                event_type = "College"
+            elif "junior gold" in event_lower or "youth" in event_lower:
+                event_type = "Youth"
+            
             full_date_label = f"{date_label} {time}".strip()
             
             schedule.append({
                 "tournament": event,
+                "type": event_type,
                 "channel": channel,
                 "channel_logo": channel_logo,
                 "date_label": full_date_label,
                 "start_time": None,
                 "end_time": None,
-                "timezone": "ET" if "ET" in time.upper() or not time else "ET" # Default to ET
+                "timezone": "ET" if "ET" in time.upper() or not time else "ET"
             })
         except Exception as e:
             print(f"WARNING: Skipping row due to error: {e}")
