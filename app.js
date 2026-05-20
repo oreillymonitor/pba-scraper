@@ -120,7 +120,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (!fuzzyMatch.start_time && event.start_time) {
                     fuzzyMatch.start_time = event.start_time;
                 }
-                if (fuzzyMatch.location === 'See Event Details' && event.location !== 'See Event Details') {
+                
+                // Location Priority: actual cities/states over generic placeholders
+                const isGeneric = (loc) => !loc || loc.includes('Details') || loc.includes('Online') || loc.includes('TV');
+                if (isGeneric(fuzzyMatch.location) && !isGeneric(event.location)) {
                     fuzzyMatch.location = event.location;
                 }
                 continue;

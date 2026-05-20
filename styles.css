@@ -215,7 +215,7 @@ input:checked + .slider:before { transform: translateX(18px); }
     padding: 1.25rem 2rem;
     transition: all 0.2s ease;
     display: grid;
-    grid-template-columns: 140px 1fr 200px;
+    grid-template-columns: 220px 1fr 200px;
     align-items: center;
     gap: 2rem;
 }
