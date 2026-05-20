@@ -5,10 +5,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const filterBtns = document.querySelectorAll('.filter-btn');
     const themeToggle = document.getElementById('themeToggle');
     const pastEventsToggle = document.getElementById('pastEventsToggle');
+    const broadcastOnlyToggle = document.getElementById('broadcastOnlyToggle');
 
     let allEvents = [];
     let currentFilter = 'all';
     let showPast = false;
+    let broadcastOnly = false;
 
     // Theme Logic
     const savedTheme = localStorage.getItem('theme');
@@ -20,6 +22,12 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.classList.toggle('light-theme');
         const theme = document.body.classList.contains('light-theme') ? 'light' : 'dark';
         localStorage.setItem('theme', theme);
+    });
+
+    // Broadcast Only Logic
+    broadcastOnlyToggle.addEventListener('change', (e) => {
+        broadcastOnly = e.target.checked;
+        applyFilters();
     });
 
     // Past Events Logic
@@ -158,12 +166,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function applyFilters() {
-        console.log("Applying filters:", { currentFilter, showPast });
+        console.log("Applying filters:", { currentFilter, showPast, broadcastOnly });
         let filtered = allEvents;
         
         // Tour Filter
         if (currentFilter !== 'all') {
             filtered = filtered.filter(e => e.tour === currentFilter);
+        }
+
+        // Broadcast Filter
+        if (broadcastOnly) {
+            filtered = filtered.filter(e => e.channel.toLowerCase() !== 'bowltv');
         }
 
         // Upcoming Filter
