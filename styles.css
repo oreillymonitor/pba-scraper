@@ -228,13 +228,21 @@ input:checked + .slider:before { transform: translateX(18px); }
 .card-date-col {
     display: flex;
     flex-direction: column;
-    gap: 0.25rem;
+    gap: 0.5rem;
+}
+
+.tour-tags-container {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-top: 0.25rem;
 }
 
 .date-text {
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--text-primary);
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--text-main);
+    line-height: 1.3;
 }
 
 .time-text {

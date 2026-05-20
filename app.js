@@ -44,9 +44,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 fetch('usbc_tv_schedule.json').then(r => r.ok ? r.json() : [])
             ]);
 
-            const pba = pbaRes.map(e => ({ ...e, tour: 'pba' }));
-            const pwba = pwbaRes.map(e => ({ ...e, tour: 'pwba' }));
-            const usbc = usbcRes.map(e => ({ ...e, tour: 'usbc' }));
+            const pba = pbaRes.map(e => ({ ...e, tour: 'pba', tours: ['pba'] }));
+            const pwba = pwbaRes.map(e => ({ ...e, tour: 'pwba', tours: ['pwba'] }));
+            const usbc = usbcRes.map(e => ({ ...e, tour: 'usbc', tours: ['usbc'] }));
 
             allEvents = mergeSchedules(pba, pwba, usbc);
             applyFilters();
@@ -119,6 +119,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (isGeneric(fuzzyMatch.location) && !isGeneric(event.location)) {
                     fuzzyMatch.location = event.location;
                 }
+                
+                // Add tour to tours array if not already present
+                if (!fuzzyMatch.tours.includes(event.tour)) {
+                    fuzzyMatch.tours.push(event.tour);
+                }
                 continue;
             }
 
@@ -171,7 +176,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Tour Filter
         if (currentFilter !== 'all') {
-            filtered = filtered.filter(e => e.tour === currentFilter);
+            filtered = filtered.filter(e => e.tours.includes(currentFilter));
         }
 
         // Broadcast Filter
@@ -207,9 +212,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         events.forEach(event => {
             const card = document.createElement('div');
-            card.className = `event-card tour-${event.tour}`;
+            card.className = `event-card tour-${event.tours[0]}`;
 
-            const tourName = event.tour.toUpperCase();
+            // Generate tour tags
+            const tourTagsHtml = event.tours.map(t => `<span class="tour-tag tour-${t}">${t.toUpperCase()}</span>`).join('');
             
             // Format Date for display
             const dateObj = parseDate(event);
@@ -233,7 +239,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="card-date-col">
                     <span class="date-text">${dateText}</span>
                     ${timeText ? `<span class="time-text">${timeText}</span>` : ''}
-                    <span class="tour-tag tour-${event.tour}">${tourName}</span>
+                    <div class="tour-tags-container">${tourTagsHtml}</div>
                 </div>
                 <div class="card-main-col">
                     <h3 class="event-title">${event.tournament}</h3>
