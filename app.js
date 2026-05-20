@@ -51,7 +51,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function mergeSchedules(pba, pwba, usbc) {
         const combined = [...pba, ...pwba, ...usbc];
         const merged = [];
-        const seen = new Set();
 
         combined.sort((a, b) => {
             if (a.start_time && !b.start_time) return -1;
@@ -90,36 +89,24 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (!time.includes('ET')) time = `${time} ET`.trim();
             }
 
-            const datePrefix = normalizedDate.replace(/[^a-z0-9]/g, '').toLowerCase();
-            const key = `${tournament}_${datePrefix}`;
-            
-            if (seen.has(key)) continue;
-            
             const fuzzyMatch = merged.find(m => {
-                // Check if dates are essentially the same (e.g., "June 16" and "june16")
                 const mDate = m.date.replace(/[^a-z0-9]/g, '').toLowerCase();
                 const eDate = normalizedDate.replace(/[^a-z0-9]/g, '').toLowerCase();
-                
-                // Allow fuzzy date match (prefix)
-                if (mDate !== eDate && !mDate.startsWith(eDate) && !eDate.startsWith(mDate)) return false;
-                
-                // Normalizing names for the search
+                const dateMatch = (mDate === eDate || mDate.startsWith(eDate) || eDate.startsWith(mDate));
+                if (!dateMatch) return false;
+
                 const mName = m.tournament.toLowerCase().replace(/go bowling\s*/i, '').replace(/[^a-z0-9]/g, '');
                 const eName = event.tournament.toLowerCase().replace(/go bowling\s*/i, '').replace(/[^a-z0-9]/g, '');
-                
-                // Special case for U.S. Open variants in fuzzy search
                 const isUSOpen = (n) => n.includes('usopen') || n.includes('uswomensopen') || n.includes('womensopen');
-                if (isUSOpen(mName) && isUSOpen(eName)) return true;
                 
-                return mName.includes(eName) || eName.includes(mName);
+                const nameMatch = (isUSOpen(mName) && isUSOpen(eName)) || mName.includes(eName) || eName.includes(mName);
+                return nameMatch;
             });
 
             if (fuzzyMatch) {
-                // Carry over time/start_time
                 if (!fuzzyMatch.time && time) fuzzyMatch.time = time;
                 if (!fuzzyMatch.start_time && event.start_time) fuzzyMatch.start_time = event.start_time;
                 
-                // Carry over location (prioritize specific over generic)
                 const isGeneric = (loc) => !loc || loc.includes('Details') || loc.includes('Online') || loc.includes('TV');
                 if (isGeneric(fuzzyMatch.location) && !isGeneric(event.location)) {
                     fuzzyMatch.location = event.location;
@@ -127,7 +114,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 continue;
             }
 
-            seen.add(key);
             // Update the event object with normalized data
             event.date = normalizedDate;
             event.time = time;
