@@ -196,8 +196,8 @@ input:checked + .slider:before { transform: translateX(18px); }
 
 /* Schedule List (Row Based) */
 .schedule-grid {
-    display: flex;
-    flex-direction: column;
+    display: flex !important;
+    flex-direction: column !important;
     gap: 1rem;
     margin-bottom: 5rem;
 }

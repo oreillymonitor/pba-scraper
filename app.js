@@ -123,6 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function applyFilters() {
+        console.log("Applying filters:", { currentFilter, showPast });
         let filtered = allEvents;
         
         // Tour Filter
@@ -133,9 +134,12 @@ document.addEventListener('DOMContentLoaded', () => {
         // Upcoming Filter
         if (!showPast) {
             const now = new Date();
-            // Move 'now' back by 4 hours to account for ongoing events
-            now.setHours(now.getHours() - 4); 
-            filtered = filtered.filter(e => parseDate(e) >= now);
+            // Buffer: consider an event "past" only if it started more than 6 hours ago
+            const bufferTime = 6 * 60 * 60 * 1000;
+            filtered = filtered.filter(e => {
+                const eventDate = parseDate(e);
+                return (eventDate.getTime() + bufferTime) >= now.getTime();
+            });
         }
 
         renderSchedule(filtered);
