@@ -1,27 +1,5 @@
 [
     {
-        "tournament": "PBA WSOB XVII - PBA World Championship - Semifinals",
-        "tour": "pba",
-        "channel": "CBS Sports Network",
-        "channel_logo": "https://www.pba.com/sites/pba/files/2023-05/cbs-sports-network.png",
-        "date": "SAT 6/13  ET",
-        "time": "11 AM",
-        "start_time": "20260613T110000",
-        "timezone": "ET",
-        "location": "See Event Details"
-    },
-    {
-        "tournament": "PBA WSOB XVII - PBA World Championship - Finals",
-        "tour": "pba",
-        "channel": "CBS / Paramount+",
-        "channel_logo": "https://www.pba.com/sites/pba/files/2025-12/pba_tv_cbs_paramount_logo.png",
-        "date": "SAT 6/13  ET",
-        "time": "1 PM",
-        "start_time": "20260613T130000",
-        "timezone": "ET",
-        "location": "See Event Details"
-    },
-    {
         "tournament": "PBA Elite League: Battle of the Brands pres. by Beatbox - Semifinals",
         "tour": "pba",
         "channel": "CBS Sports Network",
