@@ -1,27 +1,5 @@
 [
     {
-        "tournament": "PBA Elite League: Battle of the Brands pres. by Beatbox - Semifinals",
-        "tour": "pba",
-        "channel": "CBS Sports Network",
-        "channel_logo": "https://www.pba.com/sites/pba/files/2023-05/cbs-sports-network.png",
-        "date": "SAT 6/20  ET",
-        "time": "1 PM",
-        "start_time": "20260620T130000",
-        "timezone": "ET",
-        "location": "See Event Details"
-    },
-    {
-        "tournament": "PBA Elite League: Battle of the Brands pres. by Beatbox - Finals",
-        "tour": "pba",
-        "channel": "CBS Sports Network",
-        "channel_logo": "https://www.pba.com/sites/pba/files/2023-05/cbs-sports-network.png",
-        "date": "SAT 6/20  ET",
-        "time": "3 PM",
-        "start_time": "20260620T150000",
-        "timezone": "ET",
-        "location": "See Event Details"
-    },
-    {
         "tournament": "PBA Norm Duke Open - Semifinal 1",
         "tour": "pba",
         "channel": "CBS Sports Network",
