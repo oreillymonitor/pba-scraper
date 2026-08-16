@@ -99,7 +99,7 @@
         "timezone": "ET"
     },
     {
-        "tournament": "PWBA Tour Championship Week – PWBA Pepsi Open",
+        "tournament": "PWBA Tour Championship Week – PWBA Cleveland Open",
         "tour": "pwba",
         "channel": "BowlTV",
         "channel_logo": "https://www.pba.com/sites/pba/files/2026-04/bowltv-logo-blk-web.png",
@@ -110,7 +110,7 @@
         "timezone": "ET"
     },
     {
-        "tournament": "PWBA Tour Championship Week – PWBA Cleveland Open",
+        "tournament": "PWBA Tour Championship Week – PWBA Pepsi Open",
         "tour": "pwba",
         "channel": "BowlTV",
         "channel_logo": "https://www.pba.com/sites/pba/files/2026-04/bowltv-logo-blk-web.png",
