@@ -103,7 +103,7 @@
         "tour": "pwba",
         "channel": "BowlTV",
         "channel_logo": "https://www.pba.com/sites/pba/files/2026-04/bowltv-logo-blk-web.png",
-        "date": "Aug 13",
+        "date": "Aug 15",
         "time": "",
         "location": "Parma Heights, OH",
         "start_time": null,
@@ -114,7 +114,7 @@
         "tour": "pwba",
         "channel": "BowlTV",
         "channel_logo": "https://www.pba.com/sites/pba/files/2026-04/bowltv-logo-blk-web.png",
-        "date": "Aug 15",
+        "date": "Aug 13",
         "time": "",
         "location": "Parma Heights, OH",
         "start_time": null,
@@ -128,6 +128,17 @@
         "date": "Aug 18 /Bowling TV",
         "time": "",
         "location": "Parma Heights, OH",
+        "start_time": null,
+        "timezone": "ET"
+    },
+    {
+        "tournament": "PWBA Barbara Chrisman Classic",
+        "tour": "pwba",
+        "channel": "BowlTV",
+        "channel_logo": "https://www.pba.com/sites/pba/files/2026-04/bowltv-logo-blk-web.png",
+        "date": "Jun 6",
+        "time": "",
+        "location": "Columbus, OH",
         "start_time": null,
         "timezone": "ET"
     }

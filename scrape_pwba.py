@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import json
 import re
+import os
 import sys
 from datetime import datetime
 
@@ -143,18 +144,47 @@ def scrape_pwba_schedule():
     return schedule
 
 if __name__ == "__main__":
-    data = scrape_pwba_schedule()
-    
-    if data is None:
-        print("CRITICAL: Scraper failed.")
-        sys.exit(1)
-    
     output_file = "pwba_tv_schedule.json"
+    existing_events = []
+    if os.path.exists(output_file):
+        try:
+            with open(output_file, 'r', encoding='utf-8') as f:
+                existing_events = json.load(f)
+            print(f"INFO: Loaded {len(existing_events)} existing events from {output_file}")
+        except Exception as e:
+            print(f"WARNING: Could not read existing {output_file}: {e}")
+
+    new_events = scrape_pwba_schedule()
     
+    if new_events is None or len(new_events) == 0:
+        if len(existing_events) > 0:
+            print(f"INFO: PWBA scraper returned no events. Preserving {len(existing_events)} existing events.")
+            sys.exit(0)
+        else:
+            print("WARNING: No events scraped and no existing data available.")
+            sys.exit(0)
+
+    # Merge newly scraped events with existing events
+    merged = list(existing_events)
+    for new_e in new_events:
+        n_title = re.sub(r'[^a-z0-9]', '', new_e['tournament'].lower())
+        n_date = re.sub(r'[^a-z0-9]', '', new_e['date'].lower())
+        match = None
+        for ex in merged:
+            e_title = re.sub(r'[^a-z0-9]', '', ex['tournament'].lower())
+            e_date = re.sub(r'[^a-z0-9]', '', ex['date'].lower())
+            if n_title == e_title or (n_date in e_date and n_title in e_title):
+                match = ex
+                break
+        if match:
+            match.update(new_e)
+        else:
+            merged.append(new_e)
+
     try:
         with open(output_file, 'w', encoding='utf-8') as f:
-            json.dump(data, f, indent=4, ensure_ascii=False)
-        print(f"SUCCESS: Saved {len(data)} events to {output_file}")
+            json.dump(merged, f, indent=4, ensure_ascii=False)
+        print(f"SUCCESS: Saved {len(merged)} events to {output_file}")
     except Exception as e:
         print(f"CRITICAL: Failed to write output file: {e}")
         sys.exit(1)

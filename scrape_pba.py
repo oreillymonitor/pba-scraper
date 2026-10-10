@@ -69,18 +69,23 @@ def scrape_pba_tv_schedule():
     soup = BeautifulSoup(response.text, 'html.parser')
     
     # Check for off-season messages or empty containers
-    # The PBA site often displays a "No upcoming events" message
-    empty_msg = soup.find(string=re.compile("No upcoming events", re.IGNORECASE))
+    # The PBA site often displays a "No upcoming events" or "There are No Events to Show" message
+    empty_pattern = re.compile(
+        r"no upcoming events|no events to show|stay tuned for more events|no events found|check back soon",
+        re.IGNORECASE
+    )
+    empty_msg = soup.find(string=empty_pattern)
     if empty_msg:
-        print("INFO: No upcoming events found (Off-season).")
+        print(f"INFO: PBA off-season detected: '{empty_msg.strip()}'.")
         return []
 
     # Locate the main schedule table
     table = soup.find('table', class_='mobile-stacked')
     if not table:
-        # If no table AND no empty message, the structure might have changed
+        table = soup.find('table')
+    if not table:
         print("WARNING: Could not find the schedule table. Structure might have changed.")
-        return [] # Return empty list as a safe fallback
+        return None
     
     tbody = table.find('tbody')
     if not tbody:
@@ -146,22 +151,57 @@ def scrape_pba_tv_schedule():
     return schedule
 
 if __name__ == "__main__":
-    data = scrape_pba_tv_schedule()
-    
-    if data is None:
-        print("CRITICAL: Scraper failed due to network/system error. Aborting update to protect existing data.")
-        sys.exit(1)
-    
     output_file = "pba_tv_schedule.json"
+    existing_events = []
+    if os.path.exists(output_file):
+        try:
+            with open(output_file, 'r', encoding='utf-8') as f:
+                existing_events = json.load(f)
+            print(f"INFO: Loaded {len(existing_events)} existing events from {output_file}")
+        except Exception as e:
+            print(f"WARNING: Could not read existing {output_file}: {e}")
+
+    new_events = scrape_pba_tv_schedule()
     
-    # Optional: Logic to handle off-season (empty list)
-    if len(data) == 0:
-        print("INFO: Resulting schedule is empty. Updating JSON to reflect off-season.")
+    if new_events is None:
+        print("WARNING: PBA scraper failed or structure changed. Preserving existing schedule data.")
+        sys.exit(0)
     
+    # Handle off-season: preserve existing events so historical schedule remains viewable
+    if len(new_events) == 0:
+        print("INFO: Resulting schedule is empty (off-season). Preserving existing data so historical events remain accessible.")
+        if len(existing_events) > 0:
+            print(f"INFO: Preserved {len(existing_events)} existing events in {output_file}")
+            sys.exit(0)
+        else:
+            try:
+                with open(output_file, 'w', encoding='utf-8') as f:
+                    json.dump([], f, indent=4)
+            except Exception as e:
+                print(f"CRITICAL: Failed to write output file: {e}")
+            sys.exit(0)
+
+    # Merge newly scraped events with existing events
+    merged = list(existing_events)
+    for new_e in new_events:
+        n_title = re.sub(r'[^a-z0-9]', '', new_e['tournament'].lower())
+        n_date = re.sub(r'[^a-z0-9]', '', new_e['date'].lower())
+        match = None
+        for ex in merged:
+            e_title = re.sub(r'[^a-z0-9]', '', ex['tournament'].lower())
+            e_date = re.sub(r'[^a-z0-9]', '', ex['date'].lower())
+            if n_title == e_title or (n_date in e_date and n_title in e_title):
+                match = ex
+                break
+        if match:
+            match.update(new_e)
+        else:
+            merged.append(new_e)
+
     try:
         with open(output_file, 'w', encoding='utf-8') as f:
-            json.dump(data, f, indent=4, ensure_ascii=False)
-        print(f"SUCCESS: Saved {len(data)} events to {output_file}")
+            json.dump(merged, f, indent=4, ensure_ascii=False)
+        print(f"SUCCESS: Saved {len(merged)} events to {output_file}")
     except Exception as e:
         print(f"CRITICAL: Failed to write output file: {e}")
         sys.exit(1)

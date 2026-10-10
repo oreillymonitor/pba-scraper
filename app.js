@@ -46,7 +46,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const pba = pbaRes.map(e => ({ ...e, tour: 'pba', tours: ['pba'] }));
             const pwba = pwbaRes.map(e => ({ ...e, tour: 'pwba', tours: ['pwba'] }));
-            const usbc = usbcRes.map(e => ({ ...e, tour: 'usbc', tours: ['usbc'] }));
+            const usbc = usbcRes.map(e => {
+                const tours = ['usbc'];
+                const tLower = (e.tournament || '').toLowerCase();
+                if (tLower.includes('pba') && !tours.includes('pba')) tours.push('pba');
+                if (tLower.includes('pwba') && !tours.includes('pwba')) tours.push('pwba');
+                return { ...e, tour: 'usbc', tours };
+            });
 
             allEvents = mergeSchedules(pba, pwba, usbc);
             applyFilters();
@@ -120,10 +126,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     fuzzyMatch.location = event.location;
                 }
                 
-                // Add tour to tours array if not already present
-                if (!fuzzyMatch.tours.includes(event.tour)) {
-                    fuzzyMatch.tours.push(event.tour);
-                }
+                // Add tours to tours array if not already present
+                const incomingTours = event.tours || [event.tour];
+                incomingTours.forEach(t => {
+                    if (!fuzzyMatch.tours.includes(t)) {
+                        fuzzyMatch.tours.push(t);
+                    }
+                });
                 continue;
             }
 
@@ -151,15 +160,19 @@ document.addEventListener('DOMContentLoaded', () => {
             'jul': 6, 'aug': 7, 'sep': 8, 'oct': 9, 'nov': 10, 'dec': 11
         };
 
-        const parts = event.date.toLowerCase().split(/[ \/]/);
+        const parts = event.date.toLowerCase().replace(/[^a-z0-9]/g, ' ').split(/\s+/);
         let month = 4; // Default to May
         let day = 1;
+        let dayFound = false;
 
         for (const part of parts) {
-            const clean = part.replace(/[^a-z]/g, '').substring(0, 3);
+            const clean = part.substring(0, 3);
             if (months[clean] !== undefined) month = months[clean];
-            const num = part.replace(/[^0-9]/g, '');
-            if (num && !isNaN(num)) day = parseInt(num);
+            const num = parseInt(part, 10);
+            if (!isNaN(num) && num >= 1 && num <= 31 && !dayFound) {
+                day = num;
+                dayFound = true;
+            }
         }
 
         const date = new Date();
@@ -179,9 +192,12 @@ document.addEventListener('DOMContentLoaded', () => {
             filtered = filtered.filter(e => e.tours.includes(currentFilter));
         }
 
-        // Broadcast Filter
+        // Broadcast Filter (hide streaming-only platforms like BowlTV and Bowling TV)
         if (broadcastOnly) {
-            filtered = filtered.filter(e => e.channel.toLowerCase() !== 'bowltv');
+            filtered = filtered.filter(e => {
+                const ch = (e.channel || '').toLowerCase();
+                return !ch.includes('bowltv') && !ch.includes('bowling tv');
+            });
         }
 
         // Upcoming Filter
